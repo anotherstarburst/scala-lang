@@ -6,104 +6,47 @@ by: Daniel Spiewak and David Copeland
 
 ##### About
 
-This document is intended to outline some basic Scala stylistic guidelines which should be followed with more or less fervency.
-Wherever possible, this guide attempts to detail why a particular style is encouraged and how it relates to other alternatives.
-As with all style guides, treat this document as a list of rules to be broken.
-There are certainly times when alternative styles should be preferred over the ones given here.
+Scala is a flexible language. This leads to variation in coding style, which can be frustrating to read. This guide attempts to provide hints on when to use each feature. Follow the suggestions you like, and disregard the rest.
 
+## Code Formatting
+Boring details, but it's better to decide them here than have to argue about them on your team.
 
-## Indentation
+### Indentation
 
-Indentation should follow the "2-space convention". Thus, instead of
-indenting like this:
-
-    // wrong!
-    class Foo {
-        def bar = ...
-    }
-
-You should indent like this:
-
-    // right!
-    class Foo {
-      def bar = ..
-    }
-
-The Scala language encourages a startling amount of nested scopes and
-logical blocks (function values and such). Do yourself a favor and don't
-penalize yourself syntactically for opening up a new block. Coming from
-Java, this style does take a bit of getting used to, but it is well
-worth the effort.
+Use two spaces.
 
 ### Line Wrapping
 
-There are times when a single expression reaches a length where it
-becomes unreadable to keep it confined to a single line (usually that
-length is anywhere above 80 characters). In such cases, the *preferred*
-approach is to simply split the expression up into multiple expressions
-by assigning intermediate results to values. However, this is not
-always a practical solution.
-
-When it is absolutely necessary to wrap an expression across more than
-one line, each successive line should be indented two spaces from the
-*first*. Also remember that Scala requires each "wrap line" to either
-have an unclosed parenthetical or to end with an infix method in which
-the right parameter is not given:
-
-    val result = 1 + 2 + 3 + 4 + 5 + 6 +
-      7 + 8 + 9 + 10 + 11 + 12 + 13 + 14 +
-      15 + 16 + 17 + 18 + 19 + 20
-
-Without this trailing method, Scala will infer a semi-colon at the end
-of a line which was intended to wrap, throwing off the compilation
-sometimes without even so much as a warning.
+If a single expression is longer than a screenwidth (usually 80 characters), 
+first try to break it up into smaller expressions, giving each a name by storing it in a val.
+If that doesn't work, then break the line at the screen width, and indent the following lines by two spaces.
+Sometimes Scala does not recognize that the expression is not done yet. Surround it with parentheses,
+and then the boundaries are clear to people and to the compiler.
 
 ### Methods with Numerous Arguments
 
-When calling a method which takes numerous arguments (in the range of
-five or more), it is often necessary to wrap the method invocation onto
-multiple lines. In such cases, put each argument on a line by
-itself, indented two spaces from the current indent level:
+We try to keep methods down to two or three parameters. When that fails, method invocations get long.
+Indentation can help with this. First, put a newline before the method name. Add newlines before each argument, and indent two spaces again:
 
-    foo(
-      someVeryLongFieldName,
-      andAnotherVeryLongFieldName,
-      "this is a string",
-      3.1415)
-
-This way, all parameters line up, but you don't need to re-align them if
-you change the name of the method later on.
-
-Great care should be taken to avoid these sorts of invocations well into
-the length of the line. More specifically, such an invocation should be
-avoided when each parameter would have to be indented more than 50
-spaces to achieve alignment. In such cases, the invocation itself should
-be moved to the next line and indented two spaces:
-
-    // right!
-    val myOnerousAndLongFieldNameWithNoRealPoint = 
+    val resultOfFoo =
       foo(
         someVeryLongFieldName,
         andAnotherVeryLongFieldName,
         "this is a string",
         3.1415)
 
-    // wrong!
-    val myOnerousAndLongFieldNameWithNoRealPoint = foo(someVeryLongFieldName,
-                                                       andAnotherVeryLongFieldName,
-                                                       "this is a string",
-                                                       3.1415)
-
-Better yet, just try to avoid any method which takes more than two or
-three parameters!
+This way, all parameters line up, and you don't need to re-align them if
+you change the name of the method later on.
 
 ## Naming Conventions
+
+Naming is crucial to writing code that is readable. When in doubt, err on the side of 
+more names and longer names. Avoid abbreviations.
 
 Generally speaking, Scala uses "camelCase" naming conventions. That is,
 each word (except possibly the first) is delimited by capitalizing its
 first letter. Underscores (`_`) are *heavily* discouraged as they have
-special meaning within the Scala syntax. Please note that there are a
-few important exceptions to this guideline (as given below).
+special meaning within the Scala syntax. 
 
 ### Classes/Traits
 
