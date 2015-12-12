@@ -6,16 +6,18 @@ disqus: true
 
 ---
 
-(disclaimer: the name "typeclass" does not make sense. It is a historic
-name, not an intuitive one. Do not try to make sense of it.)
+## Typeclass in brief
 
-Typeclasses are not a language feature; they are a pattern. The pattern
-is useful for providing functionality to classes without changing those
-classes. For instance, we can add the ability to serialize classes
-without adding a serialize method to the class.
-This is great for
-separation of concerns. And it lets us add abilities for
-built-in classes and classes other people wrote.
+Typeclasses are not a language feature; they are a pattern. The pattern is useful for adding functionality to classes without modification. For example, we can add the ability to serialize classes without adding a serialize method to the class.
+
+*disclaimer: the name "typeclass" does not make sense. It is a historic name, not an intuitive one. Do not try to make sense of it.*
+
+## Why do we have Typeclasses?
+
+Typeclasses let us add functionlity to classes you didn't write, including built-ins. Typeclasses are also great for separation of concerns. 
+
+
+## Example
 
 Pretend we have a custom serialization protocol called Crunch. We want
 to use this to transmit all kinds of things between our applications. We
